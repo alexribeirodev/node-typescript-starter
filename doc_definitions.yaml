@@ -1,0 +1,219 @@
+"/":
+  get:
+    tags: ["/"]
+    description: Rota raiz da API
+    responses:
+      200:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                version:
+                  type: string
+                message:
+                  type: string
+      500:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                error:
+                  type: string
+
+"/v1/users":
+  get:
+    tags: ["/v1"]
+    summary: Lista de todos os usuários
+    consumes:
+      - application/json
+    produces:
+      - application/json
+    responses:
+      200:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                data:
+                  type: array
+      500:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                error:
+                  type: string
+  post:
+    tags: ["/v1"]
+    summary: Registrar novo usuário
+    consumes:
+      - application/json
+    produces:
+      - application/json
+    parameters:
+      - name: Body
+        in: body
+        description: Parâmetros para registro de usuários
+        schema:
+          type: object
+          properties:
+            id:
+              type: number
+            name:
+              type: string
+            lastName:
+              type: string
+        required: true
+    responses:
+      200:
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                data:
+                  type: array
+              example: "teste"
+      500:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                error:
+                  type: string
+"/v1/users/{id}":
+  get:
+    tags: ["/v1"]
+    summary: Busca um usuário pelo id
+    consumes:
+      - application/json
+    produces:
+      - application/json
+    parameters:
+      - name: id
+        in: path
+        description: User ID
+        required: true
+        schema:
+          type: integer
+          format: int64
+    responses:
+      200:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                data:
+                  type: array
+      500:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                error:
+                  type: string
+  put:
+    tags: ["/v1"]
+    summary: Altera os dados de um usuário existente
+    consumes:
+      - application/json
+    produces:
+      - application/json
+    parameters:
+      - name: id
+        in: path
+        description: User ID
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: Body
+        in: body
+        description: Parâmetros para manipulação de dados dos usuários
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            lastName:
+              type: string
+        required: true
+    responses:
+      200:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                data:
+                  type: array
+      500:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                error:
+                  type: string
+  delete:
+    tags: ["/v1"]
+    summary: Deletar um usuário
+    consumes:
+      - application/json
+    produces:
+      - application/json
+    parameters:
+      - name: id
+        in: path
+        description: User ID
+        required: true
+        schema:
+          type: integer
+          format: int64
+    responses:
+      200:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                data:
+                  type: array
+      500:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                error:
+                  type: string

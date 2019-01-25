@@ -1,13 +1,10 @@
 {
   "compilerOptions": {
-    "esModuleInterop": true,
-    "module": "commonjs",
     "outDir": "./dist",
-    "strict": true,
-    "target": "es6",
+    "target": "es2018",
     "sourceMap": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "module": "commonjs",
+    "lib": ["es2018"]
   },
   "exclude": [
     "node_modules"
