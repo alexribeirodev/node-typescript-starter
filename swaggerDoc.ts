@@ -6,6 +6,7 @@ const packagejson = require("./package.json");
 
 const options = {
   swaggerDefinition: {
+    openapi: "3.0.0",
     info: {
       title: packagejson.name,
       version: packagejson.version,

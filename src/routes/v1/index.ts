@@ -1,11 +1,19 @@
 import express = require("express");
+//Controllers
 import { UserController } from "../../controllers/v1/users.controller";
+import { AuthController } from "../../controllers/v1/auth.controller";
+
+//Middlewares
+import { AuthMiddleware } from "../../middleware/auth.middleware";
 
 export class RoutesV1 {
   private routes: express.Router;
-  private userPath: string;
+  private paths: {
+    users?;
+    auth?;
+  };
   constructor() {
-    this.userPath = "/users";
+    this.paths = { users: "/users", auth: "/auth" };
     this.routes = express.Router();
   }
 
@@ -25,11 +33,15 @@ export class RoutesV1 {
     );
 
     // User routes
-    this.routes.get(`${this.userPath}`, UserController.getAll);
-    this.routes.get(`${this.userPath}/:id`, UserController.getById);
-    this.routes.post(`${this.userPath}`, UserController.create);
-    this.routes.put(`${this.userPath}/:id`, UserController.edit);
-    this.routes.delete(`${this.userPath}/:id`, UserController.delete);
+    this.routes.use(`${this.paths.users}`, AuthMiddleware.validToken);
+    this.routes.get(`${this.paths.users}`, UserController.getAll);
+    this.routes.get(`${this.paths.users}/:id`, UserController.getById);
+    this.routes.post(`${this.paths.users}`, UserController.create);
+    this.routes.put(`${this.paths.users}/:id`, UserController.edit);
+    this.routes.delete(`${this.paths.users}/:id`, UserController.delete);
+
+    //Auth routes
+    this.routes.post(`${this.paths.auth}/login`, AuthController.login);
 
     return this.routes;
   }

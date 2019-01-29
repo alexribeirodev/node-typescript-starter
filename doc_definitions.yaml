@@ -1,31 +1,49 @@
 "/":
   get:
+    security:
+      - ApiKeyAuth: []
     tags: ["/"]
     description: Rota raiz da API
     responses:
       200:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                version:
-                  type: string
-                message:
-                  type: string
+        $ref: "#/components/responses/RequestSuccess"
       500:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                error:
-                  type: string
+        $ref: "#/components/responses/Error"
+      401:
+        $ref: "#/components/responses/UnauthorizedError"
+
+"/v1/auth/login":
+  post:
+    tags: ["/v1/auth"]
+    summary: Login
+    consumes:
+      - application/json
+    produces:
+      - application/json
+    parameters:
+      - name: Body
+        in: body
+        description: Parâmetros para login
+        schema:
+          type: object
+          properties:
+            login:
+              type: string
+            password:
+              type: string
+        required: true
+    responses:
+      200:
+        $ref: "#/components/responses/RequestSuccess"
+      500:
+        $ref: "#/components/responses/Error"
+      401:
+        $ref: "#/components/responses/UnauthorizedError"
 
 "/v1/users":
   get:
+    security:
+      - ApiKeyAuth: []
     tags: ["/v1"]
     summary: Lista de todos os usuários
     consumes:
@@ -34,26 +52,14 @@
       - application/json
     responses:
       200:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                data:
-                  type: array
+        $ref: "#/components/responses/RequestSuccess"
       500:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                error:
-                  type: string
+        $ref: "#/components/responses/Error"
+      401:
+        $ref: "#/components/responses/UnauthorizedError"
   post:
+    security:
+      - ApiKeyAuth: []
     tags: ["/v1"]
     summary: Registrar novo usuário
     consumes:
@@ -76,29 +82,15 @@
         required: true
     responses:
       200:
-        description: OK
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                data:
-                  type: array
-              example: "teste"
+        $ref: "#/components/responses/RequestSuccess"
       500:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                error:
-                  type: string
+        $ref: "#/components/responses/Error"
+      401:
+        $ref: "#/components/responses/UnauthorizedError"
 "/v1/users/{id}":
   get:
+    security:
+      - ApiKeyAuth: []
     tags: ["/v1"]
     summary: Busca um usuário pelo id
     consumes:
@@ -115,26 +107,14 @@
           format: int64
     responses:
       200:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                data:
-                  type: array
+        $ref: "#/components/responses/RequestSuccess"
       500:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                error:
-                  type: string
+        $ref: "#/components/responses/Error"
+      401:
+        $ref: "#/components/responses/UnauthorizedError"
   put:
+    security:
+      - ApiKeyAuth: []
     tags: ["/v1"]
     summary: Altera os dados de um usuário existente
     consumes:
@@ -162,26 +142,14 @@
         required: true
     responses:
       200:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                data:
-                  type: array
+        $ref: "#/components/responses/RequestSuccess"
       500:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                error:
-                  type: string
+        $ref: "#/components/responses/Error"
+      401:
+        $ref: "#/components/responses/UnauthorizedError"
   delete:
+    security:
+      - ApiKeyAuth: []
     tags: ["/v1"]
     summary: Deletar um usuário
     consumes:
@@ -198,22 +166,49 @@
           format: int64
     responses:
       200:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                data:
-                  type: array
+        $ref: "#/components/responses/RequestSuccess"
       500:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                error:
-                  type: string
+        $ref: "#/components/responses/Error"
+      401:
+        $ref: "#/components/responses/UnauthorizedError"
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: TOKEN
+  security:
+    ApiKeyAuth: []
+  responses:
+    RequestSuccess:
+      description: Requisição bem sucedida
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              data:
+                type: object
+    UnauthorizedError:
+      description: Rota não autorizada
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    Error:
+      description: Ocorreu algum erro na requisição
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              error:
+                type: string
