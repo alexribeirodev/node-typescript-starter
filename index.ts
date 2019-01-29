@@ -7,9 +7,11 @@ import App from "./bin/server";
 
 import { RoutesV1 } from "./src/routes/v1/index";
 
+import { ExpressResponseDefault } from "./utils/ExpressResponseDefault";
+
 debug("ts-express:server");
 
-const port = normalizePort(process.env.PORT || 3001);
+const port = normalizePort(process.env.PORT || 3000);
 App.set("port", port);
 
 const server = http.createServer(App);
@@ -23,13 +25,7 @@ let v1 = new RoutesV1();
 App.use("/v1", v1.getRoutes());
 
 // Manipulando rotas não mapeadas com retorno 404
-App.use(
-  (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    res.status(404).json({
-      message: "Não foi possível encontrar essa rota."
-    });
-  }
-);
+App.use(ExpressResponseDefault.code404);
 
 // Manipulando retorno de erros
 App.use(logErrors);
@@ -83,10 +79,7 @@ function clientErrorHandler(
   next: express.NextFunction
 ) {
   if (req.xhr) {
-    res.status(500).json({
-      message: "Houve um erro na requisição",
-      error: err
-    });
+    ExpressResponseDefault.code500(err, req, res, next);
   } else {
     next(err);
   }
@@ -98,8 +91,7 @@ function errorHandler(
   res: express.Response,
   next: express.NextFunction
 ) {
-  res.status(500).json({
-    message: "Houve um erro na requisição",
-    error: err.message ? err.message : err
-  });
+  ExpressResponseDefault.code500(err, req, res, next);
 }
+
+export default App;

@@ -1,10 +1,12 @@
 import { UserModel, User } from "../../models/v1/users.model";
-import { responseDefault } from "../../helpers/validReturn";
+import { ExpressResponseDefault } from "../../../utils/ExpressResponseDefault";
 import express = require("express");
 
 export class UserController {
+  static users: User = new User();
   constructor() {
     console.log(this);
+    UserController.users = new User();
   }
 
   static getAll(
@@ -12,12 +14,11 @@ export class UserController {
     res: express.Response,
     next: express.NextFunction
   ) {
-    console.log(this);
-    let users = new User();
-    users
+    // let
+    UserController.users
       .getAll()
       .then(data => {
-        res.json(responseDefault(data));
+        ExpressResponseDefault.code200(req, res, next, data);
       })
       .catch(err => {
         next(new Error(err));
@@ -29,11 +30,11 @@ export class UserController {
     res: express.Response,
     next: express.NextFunction
   ) {
-    let users = new User();
-    users
+    // let users = new User();
+    UserController.users
       .getById(req.params.id)
       .then(data => {
-        res.json(responseDefault(data));
+        ExpressResponseDefault.code200(req, res, next, data);
       })
       .catch(err => {
         next(new Error(err));
@@ -45,11 +46,12 @@ export class UserController {
     res: express.Response,
     next: express.NextFunction
   ) {
-    let users = new User();
-    users
+    // let users = new User();
+    delete req.body.token;
+    UserController.users
       .create(req.body)
       .then(data => {
-        res.json(responseDefault(data));
+        ExpressResponseDefault.code200(req, res, next, data);
       })
       .catch(err => {
         next(new Error(err));
@@ -61,11 +63,14 @@ export class UserController {
     res: express.Response,
     next: express.NextFunction
   ) {
-    let users = new User();
-    users
+    // let users = new User();
+    console.log(req.params.id)
+    req.body.id = req.params.id;
+    delete req.body.token;
+    UserController.users
       .edit(req.params.id, req.body)
       .then(data => {
-        res.json(responseDefault(data));
+        ExpressResponseDefault.code200(req, res, next, data);
       })
       .catch(err => {
         next(new Error(err));
@@ -77,11 +82,11 @@ export class UserController {
     res: express.Response,
     next: express.NextFunction
   ) {
-    let users = new User();
-    users
+    // // let users = new User();
+    UserController.users
       .delete(req.params.id)
       .then(data => {
-        res.json(responseDefault(data));
+        ExpressResponseDefault.code200(req, res, next, data);
       })
       .catch(err => {
         next(new Error(err));

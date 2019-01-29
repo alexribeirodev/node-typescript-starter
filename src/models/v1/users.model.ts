@@ -45,12 +45,14 @@ export class User {
 
   public edit(id: number, user: UserModel): Promise<UserModel> {
     return new Promise((resolve, reject) => {
-      let user = this.userList.filter(user => {
+      let userIndex = this.userList.findIndex((user, index, array) => {
         return user.id == id;
       });
 
-      if (user.length > 0) {
-        resolve(user[0]);
+      console.log(user, userIndex);
+      if (userIndex != -1) {
+        this.userList[userIndex] = user;
+        resolve(this.userList[userIndex]);
       } else {
         reject("Usuário não foi encontrado.");
       }
