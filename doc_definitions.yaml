@@ -14,7 +14,7 @@
 
 "/v1/auth/login":
   post:
-    tags: ["/v1/auth"]
+    tags: ["login"]
     summary: Login
     consumes:
       - application/json
