@@ -38,6 +38,7 @@
     "typescript-eslint-parser": "3.0.0"
   },
   "scripts": {
+    "start": "npm run prod",
     "build": "tsc",
     "prod": "npm run build && powershell cp package.json dist/ && powershell cp doc_definitions.yaml dist/ && node dist/index.js",
     "dev": "nodemon --watch ./ --exec \"ts-node ./index.ts\" -e ts",
