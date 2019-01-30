@@ -11,7 +11,7 @@ class App {
         this.middleware();
         this.routes();
     }
-    // Configuração para o nosso middler
+    // Configuração para o nosso middleware
     middleware() {
         this.express.use(logger("combined"));
         this.express.use(bodyParser.json());
@@ -19,6 +19,7 @@ class App {
         this.express.use(helmet());
         this.express.use(this.methodOption);
         this.express.disable("etag");
+        this.express.use(express.static("public"));
     }
     //Configuração da nossa API e nossos EndPoint e o famoso Hello
     routes() {

@@ -20,18 +20,11 @@
       - application/json
     produces:
       - application/json
-    parameters:
-      - name: Body
-        in: body
-        description: Parâmetros para login
-        schema:
-          type: object
-          properties:
-            login:
-              type: string
-            password:
-              type: string
-        required: true
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "#/definitions/Login"
     responses:
       200:
         $ref: "#/components/responses/RequestSuccess"
@@ -66,20 +59,11 @@
       - application/json
     produces:
       - application/json
-    parameters:
-      - name: Body
-        in: body
-        description: Parâmetros para registro de usuários
-        schema:
-          type: object
-          properties:
-            id:
-              type: number
-            name:
-              type: string
-            lastName:
-              type: string
-        required: true
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "#/definitions/UserCreate"
     responses:
       200:
         $ref: "#/components/responses/RequestSuccess"
@@ -129,17 +113,11 @@
         schema:
           type: integer
           format: int64
-      - name: Body
-        in: body
-        description: Parâmetros para manipulação de dados dos usuários
-        schema:
-          type: object
-          properties:
-            name:
-              type: string
-            lastName:
-              type: string
-        required: true
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "#/definitions/UserEdit"
     responses:
       200:
         $ref: "#/components/responses/RequestSuccess"
@@ -171,6 +149,31 @@
         $ref: "#/components/responses/Error"
       401:
         $ref: "#/components/responses/UnauthorizedError"
+
+definitions:
+  Login:
+    type: object
+    properties:
+      login:
+        type: string
+      password:
+        type: string
+  UserCreate:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      lastName:
+        type: string
+  UserEdit:
+    type: object
+    properties:
+      name:
+        type: string
+      lastName:
+        type: string
 
 components:
   securitySchemes:

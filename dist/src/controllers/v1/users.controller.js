@@ -8,7 +8,6 @@ class UserController {
         UserController.users = new users_model_1.User();
     }
     static getAll(req, res, next) {
-        // let
         UserController.users
             .getAll()
             .then(data => {
@@ -19,7 +18,6 @@ class UserController {
         });
     }
     static getById(req, res, next) {
-        // let users = new User();
         UserController.users
             .getById(req.params.id)
             .then(data => {
@@ -30,7 +28,6 @@ class UserController {
         });
     }
     static create(req, res, next) {
-        // let users = new User();
         delete req.body.token;
         UserController.users
             .create(req.body)
@@ -42,7 +39,6 @@ class UserController {
         });
     }
     static edit(req, res, next) {
-        // let users = new User();
         console.log(req.params.id);
         req.body.id = req.params.id;
         delete req.body.token;
@@ -56,7 +52,6 @@ class UserController {
         });
     }
     static delete(req, res, next) {
-        // // let users = new User();
         UserController.users
             .delete(req.params.id)
             .then(data => {
