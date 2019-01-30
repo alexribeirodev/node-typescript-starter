@@ -14,7 +14,6 @@ export class UserController {
     res: express.Response,
     next: express.NextFunction
   ) {
-    // let
     UserController.users
       .getAll()
       .then(data => {
@@ -30,7 +29,6 @@ export class UserController {
     res: express.Response,
     next: express.NextFunction
   ) {
-    // let users = new User();
     UserController.users
       .getById(req.params.id)
       .then(data => {
@@ -46,7 +44,6 @@ export class UserController {
     res: express.Response,
     next: express.NextFunction
   ) {
-    // let users = new User();
     delete req.body.token;
     UserController.users
       .create(req.body)
@@ -63,8 +60,7 @@ export class UserController {
     res: express.Response,
     next: express.NextFunction
   ) {
-    // let users = new User();
-    console.log(req.params.id)
+    console.log(req.params.id);
     req.body.id = req.params.id;
     delete req.body.token;
     UserController.users
@@ -82,7 +78,6 @@ export class UserController {
     res: express.Response,
     next: express.NextFunction
   ) {
-    // // let users = new User();
     UserController.users
       .delete(req.params.id)
       .then(data => {

@@ -18,9 +18,10 @@
     "morgan": "^1.9.1",
     "nodemon": "1.11.0",
     "swagger-jsdoc": "^3.2.6",
+    "swagger-stats": "^0.95.7",
+    "swagger-ui-express": "^4.0.2",
     "tsc": "1.20150623.0",
     "typescript": "^2.9.1",
-    "swagger-ui-express": "^4.0.2",
     "typescript-eslint-parser": "3.0.0"
   },
   "devDependencies": {

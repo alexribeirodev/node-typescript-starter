@@ -1,6 +1,7 @@
 import * as http from "http";
 import * as debug from "debug";
 import express = require("express");
+import config from "./config";
 
 import swaggerDoc from "./swaggerDoc";
 import App from "./bin/server";
@@ -11,7 +12,7 @@ import { ExpressResponseDefault } from "./utils/ExpressResponseDefault";
 
 debug("ts-express:server");
 
-const port = normalizePort(process.env.PORT || 3000);
+const port = normalizePort(config.PORT);
 App.set("port", port);
 
 const server = http.createServer(App);
