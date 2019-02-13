@@ -1,7 +1,7 @@
 {
-  "name": "api-project",
+  "name": "node-typescript-starter",
   "version": "1.0.0",
-  "description": "API da aplicação de projetos da Smart Brain",
+  "description": "Estrutura de API Express escrita com Typescript",
   "main": "index.js",
   "dependencies": {
     "@types/express": "^4.16.0",
