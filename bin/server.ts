@@ -3,11 +3,12 @@ import express = require("express");
 import * as logger from "morgan";
 import * as bodyParser from "body-parser";
 import * as helmet from "helmet";
+import CustomApplication from '../custom/interfaces/application.interface';
 
 // Criando as configurações para o ExpressJS
 class App {
   // Instancia dele
-  public express: express.Application;
+  public express: CustomApplication;
 
   constructor() {
     this.express = express();
