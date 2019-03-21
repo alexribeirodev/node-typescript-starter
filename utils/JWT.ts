@@ -1,8 +1,6 @@
 import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcryptjs";
-const secret = process.env.AUTH_SECRET || "secret";
-const saltCount = process.env.AUTH_SALT_ROUND || 8;
-const expiresIn = process.env.AUTH_EXPIRE_IN || "24h";
+import config from "../config";
 
 export default class JWT {
   constructor() {}
@@ -10,7 +8,7 @@ export default class JWT {
   hashPassword(password: string): Promise<string> {
     return new Promise((resolve, reject) => {
       bcrypt
-        .hash(password, saltCount)
+        .hash(password, config.AUTH_SALT_ROUND)
         .then(hashedPassword => {
           resolve(hashedPassword);
         })
@@ -19,14 +17,14 @@ export default class JWT {
   }
 
   genToken(data: any): string {
-    return jwt.sign({ data }, secret, {
-      expiresIn
+    return jwt.sign({ data }, config.AUTH_SECRET, {
+      expiresIn: config.AUTH_EXPIRE_IN
     });
   }
 
   decodeToken(token: string): Promise<string> {
     return new Promise((resolve, reject) => {
-      jwt.verify(token, secret, (err, decoded) => {
+      jwt.verify(token, config.AUTH_SECRET, (err, decoded) => {
         if (err) reject(err);
         resolve(decoded);
       });

@@ -2,15 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const secret = process.env.AUTH_SECRET || "secret";
-const saltCount = process.env.AUTH_SALT_ROUND || 8;
-const expiresIn = process.env.AUTH_EXPIRE_IN || "24h";
+const config_1 = require("../config");
 class JWT {
     constructor() { }
     hashPassword(password) {
         return new Promise((resolve, reject) => {
             bcrypt
-                .hash(password, saltCount)
+                .hash(password, config_1.default.AUTH_SALT_ROUND)
                 .then(hashedPassword => {
                 resolve(hashedPassword);
             })
@@ -18,13 +16,13 @@ class JWT {
         });
     }
     genToken(data) {
-        return jwt.sign({ data }, secret, {
-            expiresIn
+        return jwt.sign({ data }, config_1.default.AUTH_SECRET, {
+            expiresIn: config_1.default.AUTH_EXPIRE_IN
         });
     }
     decodeToken(token) {
         return new Promise((resolve, reject) => {
-            jwt.verify(token, secret, (err, decoded) => {
+            jwt.verify(token, config_1.default.AUTH_SECRET, (err, decoded) => {
                 if (err)
                     reject(err);
                 resolve(decoded);
