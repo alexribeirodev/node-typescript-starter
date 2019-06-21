@@ -1,6 +1,6 @@
 import * as express from "express";
-import JWT from "../../utils/JWT";
-import { ExpressResponseDefault } from "../../utils/ExpressResponseDefault";
+import JWT from "../utils/JWT";
+import { ExpressResponseDefault } from "../utils/ExpressResponseDefault";
 
 export class AuthMiddleware {
   constructor() {}

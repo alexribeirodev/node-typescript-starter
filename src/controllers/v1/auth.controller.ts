@@ -1,6 +1,6 @@
-import { ExpressResponseDefault } from "../../../utils/ExpressResponseDefault";
+import { ExpressResponseDefault } from "../../utils/ExpressResponseDefault";
 import express = require("express");
-import JWT from "../../../utils/JWT";
+import JWT from "../../utils/JWT";
 
 export class AuthController {
   constructor() {}
