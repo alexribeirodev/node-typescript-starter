@@ -8,7 +8,7 @@ import App from "./bin/server";
 
 import { RoutesV1 } from "./src/routes/v1/index";
 
-import { ExpressResponseDefault } from "./utils/ExpressResponseDefault";
+import { ExpressResponseDefault } from "./src/utils/ExpressResponseDefault";
 
 debug("ts-express:server");
 

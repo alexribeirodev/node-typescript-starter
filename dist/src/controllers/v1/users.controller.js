@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const users_model_1 = require("../../models/v1/users.model");
-const ExpressResponseDefault_1 = require("../../../utils/ExpressResponseDefault");
+const ExpressResponseDefault_1 = require("../../utils/ExpressResponseDefault");
 class UserController {
     constructor() {
         console.log(this);

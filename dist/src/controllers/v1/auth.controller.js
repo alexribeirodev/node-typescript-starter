@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const ExpressResponseDefault_1 = require("../../../utils/ExpressResponseDefault");
-const JWT_1 = require("../../../utils/JWT");
+const ExpressResponseDefault_1 = require("../../utils/ExpressResponseDefault");
+const JWT_1 = require("../../utils/JWT");
 class AuthController {
     constructor() { }
     static login(req, res, next) {

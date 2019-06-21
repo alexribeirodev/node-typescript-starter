@@ -1,6 +1,6 @@
 import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcryptjs";
-import config from "../config";
+import config from "../../config";
 
 export default class JWT {
   constructor() {}

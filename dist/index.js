@@ -6,7 +6,7 @@ const config_1 = require("./config");
 const swaggerDoc_1 = require("./swaggerDoc");
 const server_1 = require("./bin/server");
 const index_1 = require("./src/routes/v1/index");
-const ExpressResponseDefault_1 = require("./utils/ExpressResponseDefault");
+const ExpressResponseDefault_1 = require("./src/utils/ExpressResponseDefault");
 debug("ts-express:server");
 const port = normalizePort(config_1.default.PORT);
 server_1.default.set("port", port);
