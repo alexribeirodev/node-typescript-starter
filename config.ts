@@ -8,4 +8,5 @@ export default {
   AUTH_SECRET                   : process.env.AUTH_SECRET || "secret",
   AUTH_SALT_ROUND               : process.env.AUTH_SALT_ROUND || 8,
   AUTH_EXPIRE_IN                : process.env.AUTH_EXPIRE_IN || "24h",
+  LOG_PATH                      : process.env.LOG_PATH || __dirname
 };
