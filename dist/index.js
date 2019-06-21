@@ -3,6 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const http = require("http");
 const debug = require("debug");
 const config_1 = require("./config");
+const morgan = require("morgan");
+const fs = require("fs");
+const path = require("path");
 const swaggerDoc_1 = require("./swaggerDoc");
 const server_1 = require("./bin/server");
 const index_1 = require("./src/routes/v1/index");
@@ -15,6 +18,9 @@ server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
 swaggerDoc_1.default(server_1.default);
+const accessLogStream = fs.createWriteStream(path.join(config_1.default.LOG_PATH, 'access.log'), { flags: 'a' });
+// setup the logger
+server_1.default.use(morgan('combined', { stream: accessLogStream }));
 let v1 = new index_1.RoutesV1();
 server_1.default.use("/v1", v1.getRoutes());
 // Manipulando rotas não mapeadas com retorno 404

@@ -2,6 +2,9 @@ import * as http from "http";
 import * as debug from "debug";
 import express = require("express");
 import config from "./config";
+import * as morgan from "morgan";
+import * as fs from "fs";
+import * as path from "path";
 
 import swaggerDoc from "./swaggerDoc";
 import App from "./bin/server";
@@ -21,6 +24,11 @@ server.on("error", onError);
 server.on("listening", onListening);
 
 swaggerDoc(App);
+
+const accessLogStream = fs.createWriteStream(path.join(config.LOG_PATH, 'access.log'), { flags: 'a' })
+
+// setup the logger
+App.use(morgan('combined', { stream: accessLogStream }))
 
 let v1 = new RoutesV1();
 App.use("/v1", v1.getRoutes());
